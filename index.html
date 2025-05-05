@@ -1,38 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Telegram Web App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telegram AI Chat</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    body {
-      background-color: var(--tg-theme-bg-color);
-      color: var(--tg-theme-text-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      font-family: sans-serif;
-    }
-    button {
-      padding: 10px 20px;
-      font-size: 18px;
-    }
-  </style>
 </head>
 <body>
-  <div>
-    <h2>Привіт, <span id="username">користувач</span>!</h2>
-    <button onclick="Telegram.WebApp.showAlert('Working!')">click</button>
+  <div class="container">
+    <div id="chat"></div>
+    <div class="input-area">
+      <input type="text" id="input" placeholder="Write something..." />
+      <button onclick="sendMessage()">⬆</button>
+    </div>
   </div>
-
-  <script>
-    let tg = Telegram.WebApp;
-    tg.expand();
-    const user = tg.initDataUnsafe?.user?.first_name || "new";
-    document.getElementById("ioioning").textContent = user;
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
 

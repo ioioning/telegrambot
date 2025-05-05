@@ -1,0 +1,35 @@
+body {
+  font-family: sans-serif;
+  background-color: #1e1e2f;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+#chat {
+  flex-grow: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+.input-area {
+  display: flex;
+  border-top: 1px solid #333;
+}
+#input {
+  flex-grow: 1;
+  padding: 1rem;
+  border: none;
+  font-size: 1rem;
+}
+button {
+  padding: 1rem;
+  background: #4e5dff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
