@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Чат</title>
+  <title>AI chat</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background-color: white;
       font-family: sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     .chat-container {
+      flex: 1;
       max-width: 600px;
+      width: 100%;
       margin: 0 auto;
       padding: 20px;
+      overflow-y: auto;
     }
     .message {
       padding: 10px 15px;
@@ -35,16 +41,32 @@
     }
     .input-area {
       display: flex;
-      margin-top: 20px;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      max-width: 600px;
+      margin: 0 auto;
+      width: 100%;
+      position: sticky;
+      bottom: 0;
+      background-color: white;
     }
     input[type="text"] {
       flex: 1;
-      padding: 10px;
+      padding: 10px 15px;
       font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 25px;
+      outline: none;
     }
     button {
       padding: 10px 15px;
+      margin-left: 10px;
       font-size: 16px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 25px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -52,9 +74,9 @@
   <div class="chat-container" id="chat">
     <!-- Повідомлення з'являтимуться тут -->
   </div>
-  <div class="chat-container input-area">
+  <div class="input-area">
     <input type="text" id="userInput" placeholder="Напиши щось..."/>
-    <button onclick="sendMessage()">Надіслати</button>
+    <button onclick="sendMessage()">➤</button>
   </div>
 
   <script>
@@ -77,8 +99,7 @@
       input.value = '';
 
       setTimeout(() => {
-        // Тут згодом буде запит до AI
-        addMessage('.....(....).', 'ai');
+        addMessage('Це відповідь від AI (пізніше тут буде справжній бот).', 'ai');
       }, 500);
     }
   </script>
