@@ -3,22 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI chat</title>
+  <title>AI Чат</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background-color: white;
       font-family: sans-serif;
       height: 100vh;
+      overflow-x: hidden; /* Забороняє горизонтальну прокрутку */
+    }
+    .wrapper {
+      max-width: 600px;
+      width: 100%;
+      margin: 0 auto;
+      height: 100%;
       display: flex;
       flex-direction: column;
     }
     .chat-container {
       flex: 1;
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
       padding: 20px;
       overflow-y: auto;
     }
@@ -27,7 +31,7 @@
       margin: 10px 0;
       border-radius: 15px;
       max-width: 75%;
-      clear: both;
+      word-wrap: break-word;
     }
     .user {
       background-color: #DCF8C6;
@@ -43,11 +47,6 @@
       display: flex;
       padding: 10px;
       border-top: 1px solid #ddd;
-      max-width: 600px;
-      margin: 0 auto;
-      width: 100%;
-      position: sticky;
-      bottom: 0;
       background-color: white;
     }
     input[type="text"] {
@@ -71,12 +70,14 @@
   </style>
 </head>
 <body>
-  <div class="chat-container" id="chat">
-    <!-- Повідомлення з'являтимуться тут -->
-  </div>
-  <div class="input-area">
-    <input type="text" id="userInput" placeholder="Напиши щось..."/>
-    <button onclick="sendMessage()">➤</button>
+  <div class="wrapper">
+    <div class="chat-container" id="chat">
+      <!-- Повідомлення з'являтимуться тут -->
+    </div>
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Напиши щось..."/>
+      <button onclick="sendMessage()">➤</button>
+    </div>
   </div>
 
   <script>
@@ -99,7 +100,7 @@
       input.value = '';
 
       setTimeout(() => {
-        addMessage('......', 'ai');
+        addMessage('Це відповідь від AI (пізніше тут буде справжній бот).', 'ai');
       }, 500);
     }
   </script>
