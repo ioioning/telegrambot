@@ -5,7 +5,7 @@ async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  chat.innerHTML += `<div><strong>Ти:</strong> ${message}</div>`;
+  chat.innerHTML += `<div><strong>you</strong> ${message}</div>`;
   input.value = '';
 
   const response = await fetch('/chat', {
@@ -18,4 +18,20 @@ async function sendMessage() {
   chat.innerHTML += `<div><strong>Bot:</strong> ${data.reply}</div>`;
   chat.scrollTop = chat.scrollHeight;
 }
+
+fetch("https://your-backend.com/open_case", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ user_id: tg.initDataUnsafe.user.id })
+})
+.then(res => res.json())
+.then(data => {
+  if (data.success) {
+    alert("your prize: " + data.prize);
+  } else {
+    alert(data.message || "fail");
+  }
+});
 

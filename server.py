@@ -1,26 +1,25 @@
-from flask import Flask, request, jsonify
-import openai
+from telegram import Update, WebAppInfo, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, ContextTypes
 import os
 
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+TOKEN = os.getenv("7864290193:AAGZhC7xGrA4SYqE8jVXukFfEKtt3uFs2b4")  # або встав напряму
 
-app = Flask(__name__)
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        [InlineKeyboardButton("open", web_app=WebAppInfo(url="https://тут.git.page"))],
+        [InlineKeyboardButton("prifile", callback_data="my_rewards")],
+        [InlineKeyboardButton("deposit", callback_data="topup")],
+        [InlineKeyboardButton("code", callback_data="promo")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    await update.message.reply_text("Привіт! Обери дію:", reply_markup=reply_markup)
 
-@app.route("/chat", methods=["POST"])
-def chat():
-    data = request.json
-    user_message = data.get("message", "")
-
-    try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # або gpt-4
-            messages=[{"role": "user", "content": user_message}]
-        )
-        reply = response['choices'][0]['message']['content']
-        return jsonify({"reply": reply.strip()})
-    except Exception as e:
-        return jsonify({"reply": f"Fail: {str(e)}"})
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    print("Bot is running...")
+    app.run_polling()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    main()
 

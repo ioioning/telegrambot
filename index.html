@@ -1,107 +1,38 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AI Чат</title>
+  <meta charset="UTF-8">
+  <title>Cases</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background-color: white;
+    body {
+      background: white;
       font-family: sans-serif;
-      height: 100vh;
-      overflow-x: hidden; /* Забороняє горизонтальну прокрутку */
-    }
-    .wrapper {
-      max-width: 600px;
-      width: 100%;
-      margin: 0 auto;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-    .chat-container {
-      flex: 1;
       padding: 20px;
-      overflow-y: auto;
-    }
-    .message {
-      padding: 10px 15px;
-      margin: 10px 0;
-      border-radius: 15px;
-      max-width: 75%;
-      word-wrap: break-word;
-    }
-    .user {
-      background-color: #DCF8C6;
-      margin-left: auto;
-      text-align: right;
-    }
-    .ai {
-      background-color: #F1F0F0;
-      margin-right: auto;
-      text-align: left;
-    }
-    .input-area {
-      display: flex;
-      padding: 10px;
-      border-top: 1px solid #ddd;
-      background-color: white;
-    }
-    input[type="text"] {
-      flex: 1;
-      padding: 10px 15px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 25px;
-      outline: none;
     }
     button {
-      padding: 10px 15px;
-      margin-left: 10px;
+      padding: 10px 20px;
       font-size: 16px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 25px;
-      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <div class="chat-container" id="chat">
-      <!-- Повідомлення з'являтимуться тут -->
-    </div>
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Напиши щось..."/>
-      <button onclick="sendMessage()">➤</button>
-    </div>
-  </div>
+  <h2>Open</h2>
+  <p>Random gift</p>
+  <button onclick="openCase()">Крутити</button>
+  <div id="result"></div>
 
   <script>
-    const chat = document.getElementById('chat');
+    const tg = window.Telegram.WebApp;
+    tg.expand();
 
-    function addMessage(text, from) {
-      const msg = document.createElement('div');
-      msg.classList.add('message', from);
-      msg.textContent = text;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-    }
-
-    function sendMessage() {
-      const input = document.getElementById('userInput');
-      const text = input.value.trim();
-      if (text === '') return;
-
-      addMessage(text, 'user');
-      input.value = '';
-
-      setTimeout(() => {
-        addMessage('Це відповідь від AI (пізніше тут буде справжній бот).', 'ai');
-      }, 500);
+    function openCase() {
+      const prizes = ['100 TON', 'Swiss Watch', 'Berry Box', 'nothing'];
+      const prize = prizes[Math.floor(Math.random() * prizes.length)];
+      document.getElementById('result').innerText = 'Твій приз: ' + prize;
+      // Тут можна ще відправити результат на бекенд
     }
   </script>
 </body>
