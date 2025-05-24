@@ -71,4 +71,27 @@ function App() {
     { name: "Golden TON", price: 3 },
   ];
 
+<script>
+  function openCase(name) {
+    document.getElementById('caseTitle').textContent = name;
+    document.getElementById('caseModal').classList.remove('hidden');
+  }
+
+  function closeModal() {
+    document.getElementById('caseModal').classList.add('hidden');
+  }
+
+  // Telegram WebApp
+  window.addEventListener("DOMContentLoaded", () => {
+    if (window.Telegram && Telegram.WebApp && Telegram.WebApp.initDataUnsafe.user) {
+      const user = Telegram.WebApp.initDataUnsafe.user;
+      const avatar = document.getElementById("avatar");
+      if (user.photo_url) {
+        avatar.src = user.photo_url;
+      } else {
+        avatar.src = "https://ui-avatars.com/api/?name=" + encodeURIComponent(user.first_name || "User");
+      }
+    }
+  });
+</script>
 
