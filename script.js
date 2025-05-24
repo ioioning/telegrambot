@@ -1,37 +1,25 @@
-async function sendMessage() {
-  const input = document.getElementById('input');
-  const chat = document.getElementById('chat');
+const tg = window.Telegram.WebApp;
+tg.expand();
 
-  const message = input.value.trim();
-  if (!message) return;
+document.getElementById("avatar").src = tg.initDataUnsafe.user.photo_url || "https://via.placeholder.com/36";
 
-  chat.innerHTML += `<div><strong>you</strong> ${message}</div>`;
-  input.value = '';
-
-  const response = await fetch('/chat', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({ message })
-  });
-
-  const data = await response.json();
-  chat.innerHTML += `<div><strong>Bot:</strong> ${data.reply}</div>`;
-  chat.scrollTop = chat.scrollHeight;
+function showCases() {
+  const content = document.getElementById("content");
+  content.innerHTML = `
+    <h2>Cases</h2>
+    <p>Here will be your case list.</p>
+  `;
 }
 
-fetch("https://your-backend.com/open_case", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ user_id: tg.initDataUnsafe.user.id })
-})
-.then(res => res.json())
-.then(data => {
-  if (data.success) {
-    alert("your prize: " + data.prize);
-  } else {
-    alert(data.message || "fail");
-  }
-});
+function showProfile() {
+  const content = document.getElementById("content");
+  content.innerHTML = `
+    <h2>Profile</h2>
+    <p>User ID: ${tg.initDataUnsafe.user.id}</p>
+    <p>Username: @${tg.initDataUnsafe.user.username || "unknown"}</p>
+  `;
+}
+
+// Початково показати Cases
+showCases();
 
