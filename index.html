@@ -1,28 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mini App</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Telegram Mini App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <div class="header">
-    <div class="balance">Balance: <span id="balance">0.00</span></div>
-    <img id="avatar" src="" alt="avatar" class="avatar" />
+<body class="bg-white text-black font-sans">
+  <!-- Верхня панель -->
+  <div class="flex items-center justify-between p-4 border-b border-gray-300">
+    <div class="text-xl font-semibold">Balance: <span id="balance">0.00</span> 💎</div>
+    <img id="avatar" src="" alt="avatar" class="w-10 h-10 rounded-full border border-gray-300">
   </div>
 
-  <div class="content" id="content">
-    <!-- Контент вкладки (Cases / Profile) -->
+  <!-- Контейнер кейсів -->
+  <div class="grid grid-cols-2 gap-4 p-4">
+    <!-- 6 кейсів -->
+    <div onclick="openCase('Bear')" class="bg-gray-200 rounded-lg h-36 flex items-center justify-center text-gray-700 font-medium">Case 1</div>
+    <div onclick="openCase('Bear')" class="bg-gray-200 rounded-lg h-36 flex items-center justify-center text-gray-700 font-medium">Case 2</div>
+    <div onclick="openCase('Bear')" class="bg-gray-200 rounded-lg h-36 flex items-center justify-center text-gray-700 font-medium">Case 3</div>
+    <div onclick="openCase('Bear')" class="bg-gray-200 rounded-lg h-36 flex items-center justify-center text-gray-700 font-medium">Case 4</div>
+    <div onclick="openCase('Bear')" class="bg-gray-200 rounded-lg h-36 flex items-center justify-center text-gray-700 font-medium">Case 5</div>
+    <div onclick="openCase('Bear')" class="bg-gray-200 rounded-lg h-36 flex items-center justify-center text-gray-700 font-medium">Case 6</div>
   </div>
 
-  <div class="footer">
-    <button onclick="showCases()">Cases</button>
-    <button onclick="showProfile()">Profile</button>
+  <!-- Модальне вікно -->
+  <div id="caseModal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
+    <div class="bg-white w-11/12 max-w-md rounded-xl p-4 relative">
+      <button onclick="closeModal()" class="absolute right-2 top-2 text-black text-xl">&times;</button>
+      <h2 class="text-xl font-bold mb-4" id="caseTitle">Bear</h2>
+      <div class="flex gap-2 overflow-x-auto mb-4">
+        <div class="min-w-[80px] h-20 bg-gray-200 rounded-md flex items-center justify-center"></div>
+        <div class="min-w-[80px] h-20 bg-gray-200 rounded-md flex items-center justify-center"></div>
+        <div class="min-w-[80px] h-20 bg-gray-200 rounded-md flex items-center justify-center"></div>
+      </div>
+      <div class="flex justify-center gap-2 mb-2">
+        <button class="bg-gray-700 text-white px-4 py-2 rounded-full">real</button>
+        <button class="bg-gray-300 text-black px-4 py-2 rounded-full">demo</button>
+      </div>
+      <p class="text-center text-gray-600 mb-4">Not enough balance</p>
+      <button class="w-full bg-blue-500 text-white py-2 rounded-lg">Deposit</button>
+      <p class="mt-4 text-sm font-semibold">Possible prizes:</p>
+      <div class="grid grid-cols-3 gap-2 mt-2">
+        <div class="bg-gray-100 rounded-md p-2 text-center">100 ton</div>
+        <div class="bg-gray-100 rounded-md p-2 text-center">50 ton</div>
+        <div class="bg-gray-100 rounded-md p-2 text-center">15 ton</div>
+        <div class="bg-gray-100 rounded-md p-2 text-center">10 ton</div>
+        <div class="bg-gray-100 rounded-md p-2 text-center">5 ton</div>
+        <div class="bg-gray-100 rounded-md p-2 text-center">1 ton </div>
+      </div>
+    </div>
   </div>
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="script.js"></script>
+  <!-- Нижні вкладки -->
+  <div class="fixed bottom-0 left-0 right-0 bg-black bg-opacity-80 flex justify-around text-white p-2">
+    <button class="flex flex-col items-center">
+      <span class="material-icons">💼</span>
+      <span class="text-xs">Cases</span>
+    </button>
+    <button class="flex flex-col items-center">
+      <span class="material-icons">👤</span>
+      <span class="text-xs">Profile</span>
+    </button>
+  </div>
+
+  <!-- Скрипти -->
+  <script>
+    function openCase(name) {
+      document.getElementById('caseTitle').textContent = name;
+      document.getElementById('caseModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      document.getElementById('caseModal').classList.add('hidden');
+    }
+
+    // Ініціалізація Telegram WebApp
+    if (window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      document.getElementById("avatar").src = tg.initDataUnsafe.user.photo_url || "";
+    }
+  </script>
 </body>
 </html>
 
