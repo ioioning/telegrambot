@@ -1,13 +1,15 @@
-const tg = window.Telegram.WebApp;
-tg.expand();
-
-document.getElementById("avatar").src = tg.initDataUnsafe.user.photo_url || "https://via.placeholder.com/36";
-
 function showCases() {
   const content = document.getElementById("content");
   content.innerHTML = `
     <h2>Cases</h2>
-    <p>Here will be your case list.</p>
+    <div class="cases-grid">
+      ${[...Array(6)].map((_, i) => `
+        <div class="case-item">
+          <div class="case-title">${i === 0 ? 'Free Case' : `Case ${i + 1}`}</div>
+          <div class="case-price">${i === 0 ? 'FREE' : `${(i * 0.5).toFixed(1)} `}</div>
+        </div>
+      `).join('')}
+    </div>
   `;
 }
 
